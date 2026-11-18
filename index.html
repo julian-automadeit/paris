@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2E5A4C">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Paris">
@@ -13,212 +13,163 @@
 <title>Paris-Wochenende</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F1F4EF; --surface:#FFFFFF; --ink:#1D2B26; --muted:#5B6B64; --line:#CBD5CD;
-  --green:#2E5A4C; --green-soft:#DCE7E1; --amber:#C98A1E; --plum:#8C4A68; --on:#F1F4EF;
-  --c:var(--green);
+  --bg:#FFFFFF; --ink:#000000; --muted:#666666; --soft:#EFEFEF;
+  --red:#E4002B; --blue:#0033A0; --yellow:#FFD100;
+  --c:var(--ink); --on:#FFFFFF;
+  --f:"Neue Haas Grotesk Display Pro","Neue Haas Grotesk Text Pro","Helvetica Neue",Helvetica,Inter,Arial,sans-serif;
   color-scheme:light; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7; --line:#2C3B34;
-    --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --plum:#D795B3; --on:#111915; color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7; --line:#2C3B34;
-  --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --plum:#D795B3; --on:#111915; color-scheme:dark;
-}
 *,*::before,*::after{box-sizing:inherit}
 html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
-body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 17px/1.55 Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 16px/1.45 var(--f);-webkit-font-smoothing:antialiased;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 button{font:inherit;color:inherit}
-.wrap{max-width:620px;margin:0 auto;padding:0 20px}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px}
 .view{display:none}
 .view.on{display:block}
-h1,h2,h3,h4{font-weight:400}
-.serif{font-family:Gloock,Georgia,"Times New Roman",serif}
-:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+h1,h2,h3,h4{font-weight:700}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 
-/* ---------- Start ---------- */
-.hero{padding:32px 0 8px;text-align:center}
-.sign{display:inline-block;border:2px solid var(--green);border-radius:999px 999px 16px 16px;padding:20px 32px 14px}
-.sign h1{margin:0;font:400 clamp(60px,19vw,96px)/.95 Gloock,Georgia,serif;color:var(--green)}
-.sign p{margin:6px 0 0;font-size:15px;color:var(--muted)}
-.greet{margin:18px auto 0;max-width:30em;color:var(--muted);font-size:16px}
-
-.score{margin:26px 0 0;display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
-.ring{--p:0;flex:none;width:68px;height:68px;border-radius:50%;background:conic-gradient(var(--amber) calc(var(--p)*1%),var(--green-soft) 0);display:grid;place-items:center}
-.ring span{width:52px;height:52px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-weight:700;font-size:16px}
-.score b{display:block;font-size:18px}
-.score small{color:var(--muted);font-size:14.5px}
-
-.sec{margin:30px 0 0}
-.sec > h2{margin:0 0 12px;font:400 26px/1.2 Gloock,Georgia,serif}
-
-/* Linienplan-Karten */
-.lines{display:grid;gap:12px}
-.line{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;cursor:pointer;text-decoration:none;color:inherit}
+/* Start */
+.hero{padding:28px 0 0}
+.sign{display:block}
+.sign h1{margin:0;font:700 clamp(84px,30vw,168px)/.82 var(--f);letter-spacing:-.06em}
+.sign p{margin:16px 0 0;font-size:15px;font-weight:500;display:flex;gap:10px;align-items:center}
+.sign p::before{content:"";flex:none;width:14px;height:14px;background:var(--red)}
+.greet{margin:4px 0 0 24px;color:var(--muted);font-size:15px}
+.score{margin:28px 0 0;display:flex;align-items:center;gap:16px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0}
+.ring{--p:0;flex:none;width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--red) calc(var(--p)*1%),var(--soft) 0);display:grid;place-items:center}
+.ring span{width:42px;height:42px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.score b{display:block;font-size:18px;letter-spacing:-.01em}
+.score small{color:var(--muted);font-size:14px}
+.sec{margin:34px 0 0}
+.sec > h2{margin:0 0 12px;font:700 26px/1.05 var(--f);letter-spacing:-.03em}
+.lines{display:grid;border-top:2px solid var(--ink)}
+.line{display:block;text-decoration:none;color:inherit;border-bottom:1px solid var(--ink);padding:14px 0}
 .line-head{display:flex;align-items:center;gap:12px}
-.badge{flex:none;width:40px;height:40px;border-radius:50%;background:var(--c);color:var(--on);display:grid;place-items:center;font-weight:700;font-size:17px}
-.line-head b{display:block;font-size:19px}
+.badge{flex:none;width:40px;height:40px;background:var(--c);color:var(--on);display:grid;place-items:center;font-weight:700;font-size:16px;letter-spacing:-.02em}
+.line-head b{display:block;font-size:19px;letter-spacing:-.02em}
 .line-head small{display:block;color:var(--muted);font-size:14px}
-.line-head .count{margin-left:auto;font-weight:600;color:var(--c);font-size:15px;white-space:nowrap}
-.track{position:relative;display:flex;justify-content:space-between;align-items:center;margin:16px 4px 2px;height:16px}
-.track::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:var(--c);border-radius:2px;opacity:.35}
-.dot{position:relative;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--c)}
-.dot.done{background:var(--c)}
-.dot.star{width:18px;height:18px}
-
-/* Als Nächstes */
-.next{background:var(--green);color:var(--on);border-radius:20px;padding:18px 18px 16px}
-.next .lbl{font-size:14px;opacity:.85}
-.next h3{margin:4px 0 0;font:400 28px/1.15 Gloock,Georgia,serif}
-.next p{margin:6px 0 0;opacity:.92}
-.next .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;border-radius:12px;border:0;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;min-height:44px}
+.line-head .count{margin-left:auto;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.track{position:relative;display:flex;justify-content:space-between;align-items:center;margin:14px 0 2px;height:16px}
+.track::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:var(--c)}
+.dot{position:relative;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2.5px solid var(--ink)}
+.dot.done{background:var(--ink)}
+.dot.star{width:16px;height:16px}
+.next{background:var(--ink);color:#fff;padding:18px}
+.next .lbl{font-size:14px;font-weight:500;opacity:.7}
+.next h3{margin:4px 0 0;font:700 30px/1.02 var(--f);letter-spacing:-.03em}
+.next p{margin:8px 0 0;opacity:.85;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.next .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;border:0;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;min-height:44px}
 .btn svg{width:18px;height:18px;flex:none}
-.btn-maps{background:var(--green);color:var(--on)}
-.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.next .btn-maps{background:var(--on);color:var(--green)}
-.next .btn-ghost{color:var(--on);border-color:color-mix(in srgb,var(--on) 45%,transparent)}
-
-/* Überrasch mich */
-.dice{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px dashed var(--amber);border-radius:18px;padding:16px 18px}
-.dice button{flex:none;width:58px;height:58px;border-radius:16px;border:0;background:var(--amber);color:#fff;font-size:30px;cursor:pointer}
-.dice p{margin:0;font-size:16px}
-.dice small{display:block;color:var(--muted);font-size:13.5px;margin-bottom:2px}
-
-/* Sprachführer */
-.phrases{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.phrase{perspective:600px;border:0;background:none;padding:0;cursor:pointer;min-height:96px}
-.phrase .in{position:relative;display:block;height:100%;min-height:96px;transition:transform .45s;transform-style:preserve-3d}
+.btn-maps{background:var(--ink);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.next .btn-maps{background:#fff;color:#000}
+.next .btn-ghost{color:#fff;border-color:#fff}
+.dice{display:flex;gap:14px;align-items:center;background:var(--yellow);padding:16px}
+.dice button{flex:none;width:56px;height:56px;border:0;background:var(--ink);color:#fff;font-size:28px;cursor:pointer}
+.dice p{margin:0;font-size:15.5px;color:#000}
+.dice small{display:block;color:#000;opacity:.7;font-size:13px;font-weight:500;margin-bottom:2px}
+.phrases{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.phrase{perspective:700px;border:0;background:none;padding:0;cursor:pointer;min-height:112px}
+.phrase .in{position:relative;display:block;height:100%;min-height:112px;transition:transform .45s;transform-style:preserve-3d}
 .phrase.flip .in{transform:rotateY(180deg)}
-.phrase .f,.phrase .b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:10px;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.phrase .f{background:var(--surface);border:1px solid var(--line);font:400 18px/1.25 Gloock,Georgia,serif}
-.phrase .b{background:var(--green-soft);color:var(--green);transform:rotateY(180deg);font-weight:600;font-size:15.5px}
+.phrase .f,.phrase .b{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;text-align:left;padding:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.phrase .f{background:var(--bg);border:2px solid var(--ink);font:700 17px/1.15 var(--f);letter-spacing:-.01em}
+.phrase .b{background:var(--blue);color:#fff;transform:rotateY(180deg);font-weight:500;font-size:14px;line-height:1.35}
 .hint{margin:8px 0 0;color:var(--muted);font-size:14px}
-
-/* Checkliste */
-.checks{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:6px 6px}
-.check{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;cursor:pointer}
-.check input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--green);border-radius:7px;display:grid;place-items:center;cursor:pointer}
-.check input:checked{background:var(--green)}
-.check input:checked::after{content:"";width:6px;height:11px;border:solid var(--on);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.checks{border-top:2px solid var(--ink)}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--ink);cursor:pointer}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:1px 0 0;border:2px solid var(--ink);display:grid;place-items:center;cursor:pointer}
+.check input:checked{background:var(--ink)}
+.check input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
 .check input:checked + span{color:var(--muted);text-decoration:line-through}
-
-.stay{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.stay{border-top:2px solid var(--ink);padding:14px 0 0}
 .stay p{margin:0}
 .stay p + p{margin-top:6px;color:var(--muted);font-size:15px}
 .install{display:none;margin-top:12px}
 .install.on{display:inline-flex}
 
-/* ---------- Tag ---------- */
+/* Tag */
 .dayhead{padding:28px 0 4px}
-.dayhead .badge{width:48px;height:48px;font-size:20px;margin-bottom:12px}
-.dayhead h2{margin:0;font:400 42px/1.05 Gloock,Georgia,serif}
-.dayhead p{margin:6px 0 0;color:var(--muted)}
-.bar{margin-top:16px;height:8px;border-radius:4px;background:var(--green-soft);overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--c);border-radius:4px;transition:width .4s}
-.bar-txt{margin-top:6px;font-size:14px;color:var(--muted)}
-
-.slot{position:relative;margin-top:28px;padding-left:26px}
-.slot::before{content:"";position:absolute;left:6px;top:10px;bottom:-28px;width:3px;background:var(--c);opacity:.3;border-radius:2px}
-.slot:last-child::before{bottom:0}
-.slot > h3{position:relative;margin:0 0 10px;font-size:14.5px;font-weight:600;color:var(--c)}
-.slot > h3::before{content:"";position:absolute;left:-26px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--c)}
-.stops{display:grid;gap:12px}
-.stop{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;transition:opacity .25s}
-.stop.hl{border:2px solid var(--amber)}
-.stop.rest{background:transparent;border-style:dashed}
-.stop h4{margin:0;font:400 23px/1.2 Gloock,Georgia,serif}
-.stop .tag{display:inline-block;margin-left:6px;font:600 12.5px Figtree,sans-serif;color:var(--muted);vertical-align:3px}
-.stop .tag.gift{color:var(--amber)}
-.stop p{margin:6px 0 0}
-.stop .info{font-size:15px;color:var(--muted)}
-.stop .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.stop.done{opacity:.6}
-.stop.done h4{text-decoration:line-through;text-decoration-thickness:2px}
-.tick{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
-.stop.done .tick{background:var(--c);border-color:var(--c);color:var(--on)}
-.back{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;padding:8px 0}
-
-/* ---------- Untere Navigation ---------- */
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
-.tabbar nav{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:12px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600}
-.tabbar a .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;border:2px solid currentColor}
-.tabbar a[aria-current="page"]{color:var(--c)}
-.tabbar a[aria-current="page"] .ic{background:var(--c);border-color:var(--c);color:var(--on)}
-
-/* Toast + Konfetti */
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:30;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:600;font-size:15px;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 40px);text-align:center}
-.toast.on{opacity:1;transform:translate(-50%,0)}
-.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:40;pointer-events:none;border-radius:2px;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
-
-footer{padding:34px 0 10px;font-size:13px;color:var(--muted)}
-footer a{color:var(--muted)}
-
-/* Fold zugeklappt */
-@media (max-width:380px){
-  body{font-size:16px}
-  .wrap{padding:0 14px}
-  .sign{padding:16px 22px 12px}
-  .stop{padding:14px 13px 12px}
-  .stop h4{font-size:21px}
-  .stop .row .btn{flex:1}
-  .slot{padding-left:22px}
-  .slot > h3::before{left:-22px}
-  .phrase .f{font-size:16px}
-  .tabbar a{font-size:11.5px}
-}
-/* Fold aufgeklappt / Tablet */
-@media (min-width:640px){
-  .wrap{max-width:920px;padding:0 28px}
-  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start}
-  .home-grid .sec{margin-top:30px}
-  .phrases{grid-template-columns:repeat(3,1fr)}
-  .stops{grid-template-columns:1fr 1fr}
-}
-@media (horizontal-viewport-segments:2){
-  .home-grid,.stops{column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 24px)}
-}
-@media (prefers-reduced-motion: reduce){
-  .phrase .in,.bar i,.toast,.stop{transition:none}
-  .confetti{display:none}
-}
-/* Ruhigere Ansicht */
-.greet{font-size:15.5px}
-.next p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.stops{gap:8px;align-items:start}
-.stop{padding:0}
-.stop-head{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px}
-.check-btn{flex:none;width:32px;height:32px;border-radius:50%;border:2px solid var(--c);background:transparent;color:transparent;font-weight:700;font-size:15px;display:grid;place-items:center;cursor:pointer;padding:0}
-.check-btn[aria-pressed="true"]{background:var(--c);color:var(--on)}
+.dayhead .badge{width:52px;height:52px;font-size:20px;margin-bottom:14px}
+.dayhead h2{margin:0;font:700 clamp(52px,15vw,80px)/.9 var(--f);letter-spacing:-.05em}
+.dayhead p{margin:10px 0 0;color:var(--muted);font-size:15px}
+.bar{margin-top:18px;height:6px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--c);transition:width .4s}
+.bar-txt{margin-top:6px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.slot{margin-top:30px}
+.slot > h3{margin:0;padding:0 0 8px;font-size:14px;font-weight:700;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:8px}
+.slot > h3::before{content:"";width:10px;height:10px;background:var(--c)}
+.stops{display:grid;align-items:start}
+.stop{border-bottom:1px solid var(--ink)}
+.stop-head{display:flex;align-items:center;gap:12px;padding:10px 0}
+.check-btn{flex:none;width:28px;height:28px;border:2px solid var(--ink);background:transparent;color:transparent;font-weight:700;font-size:14px;display:grid;place-items:center;cursor:pointer;padding:0}
+.check-btn[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:var(--on)}
+.stop.rest .check-btn{border-style:dashed}
 .stop-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:0;padding:6px 0;text-align:left;cursor:pointer;color:inherit}
 .st-title{flex:1;min-width:0}
-.st-name{display:block;font:400 20px/1.2 Gloock,Georgia,"Times New Roman",serif}
-.stop.done .st-name{text-decoration:line-through;text-decoration-thickness:2px}
-.stop .tag{margin:2px 8px 0 0;vertical-align:0}
-.stop .tag.star{color:var(--amber)}
-.chev{flex:none;color:var(--muted);font-size:24px;line-height:1;transition:transform .2s}
+.st-name{display:block;font:700 19px/1.15 var(--f);letter-spacing:-.02em}
+.stop.done .st-name{text-decoration:line-through;text-decoration-thickness:2px;color:var(--muted)}
+.stop .tag{display:inline-flex;align-items:center;gap:5px;margin:4px 10px 0 0;font:500 12.5px var(--f);color:var(--muted)}
+.stop .tag.star,.stop .tag.gift{color:var(--ink)}
+.stop .tag.star::before,.stop .tag.gift::before{content:"";width:8px;height:8px}
+.stop .tag.star::before{background:var(--red);border-radius:50%}
+.stop .tag.gift::before{background:var(--blue)}
+.chev{flex:none;font-size:22px;line-height:1;transition:transform .2s}
 .stop.open .chev{transform:rotate(90deg)}
-.pin{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green)}
+.pin{flex:none;width:40px;height:40px;display:grid;place-items:center;background:var(--ink);color:#fff}
 .pin svg{width:18px;height:18px}
-.stop-body{padding:0 16px 16px 54px}
+.stop-body{padding:0 0 16px 40px}
 .stop-body[hidden]{display:none}
+.stop-body p{margin:6px 0 0}
 .stop-body p:first-child{margin-top:0}
-.stop.hl{border:1px solid var(--line);box-shadow:inset 3px 0 0 var(--amber)}
-.stop.rest .check-btn{border-style:dashed}
-.tabbar nav{grid-template-columns:repeat(5,1fr)}
-@media (max-width:380px){.stop-body{padding:0 14px 14px 14px}.st-name{font-size:19px}.pin{width:36px;height:36px}}
-@media (prefers-reduced-motion: reduce){.chev{transition:none}}
+.stop .info{font-size:14.5px;color:var(--muted)}
+.stop .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.back{display:inline-flex;margin-top:24px;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none;padding:6px 0;border-bottom:2px solid var(--ink)}
+
+/* Navigation */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--bg);border-top:2px solid var(--ink);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbar nav{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;text-decoration:none;color:var(--ink);font-size:12px;font-weight:500}
+.tabbar a .ic{width:28px;height:28px;display:grid;place-items:center;font-size:13px;font-weight:700;border:2px solid var(--ink)}
+.tabbar a[aria-current="page"]{font-weight:700}
+.tabbar a[aria-current="page"] .ic{background:var(--c);border-color:var(--c);color:var(--on)}
+
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:30;background:#000;color:#fff;padding:12px 18px;font-weight:700;font-size:15px;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 40px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;top:-12px;width:10px;height:10px;z-index:40;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+footer{padding:34px 0 10px;font-size:12.5px;color:var(--muted)}
+footer a{color:var(--muted)}
+
+@media (max-width:380px){
+  .wrap{padding:0 14px}
+  .stop-body{padding-left:0}
+  .st-name{font-size:18px}
+  .pin{width:36px;height:36px}
+  .phrase .f{font-size:15px}
+  .tabbar a{font-size:11px}
+}
+@media (min-width:640px){
+  .wrap{max-width:920px;padding:0 28px}
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;align-items:start}
+  .phrases{grid-template-columns:repeat(4,1fr)}
+  .stops{grid-template-columns:1fr 1fr;column-gap:28px}
+}
+@media (horizontal-viewport-segments:2){
+  .home-grid,.stops{column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 28px)}
+}
+@media (prefers-reduced-motion: reduce){
+  .phrase .in,.bar i,.toast,.chev{transition:none}
+  .confetti{display:none}
+}
 </style>
 </head>
 <body>
@@ -304,7 +255,7 @@ var PIN='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d
 var M=function(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);};
 
 var DAYS=[
- {id:'freitag',short:'Fr',name:'Freitag',theme:'Kunst & Belle Époque',color:'var(--green)',lead:'Kunst und Belle Époque an der Seine, fast alles zu Fuß.',slots:[
+ {id:'freitag',short:'Fr',name:'Freitag',theme:'Kunst & Belle Époque',color:'var(--blue)',on:'#fff',lead:'Kunst und Belle Époque an der Seine, fast alles zu Fuß.',slots:[
   {t:'Vormittag',s:[{id:'orsay',n:'Musée d’Orsay',hl:1,d:'Ehemaliger Bahnhof, heute das Museum mit der größten Sammlung impressionistischer Kunst: Monet, Renoir, Van Gogh, Degas.',i:'2–3 Stunden einplanen. Oben im 5. Stock durch die große Bahnhofsuhr auf Paris schauen.',q:'Musée d\'Orsay Paris'},
    {id:'sennelier',n:'Sennelier',gift:1,d:'Winziger Malbedarfsladen von 1887 am Quai Voltaire, 5 Minuten vom Orsay. Hier kauften schon Cézanne, Degas und Picasso ihre Farben, und innen sieht es noch fast aus wie damals.',i:'Schöne kleine Mitbringsel: ein Skizzenbuch, ein paar Pastellkreiden oder eine kleine Aquarellbox mit dem Sennelier-Logo.',q:'Sennelier 3 Quai Voltaire Paris'}]},
   {t:'Mittag',s:[
@@ -321,7 +272,7 @@ var DAYS=[
    {id:'eiffel',n:'Eiffelturm funkeln sehen',hl:1,d:'Nach dem Dinner zum Trocadéro, dem Platz mit dem besten Blick auf den Turm. Nach Einbruch der Dunkelheit funkelt er zu jeder vollen Stunde 5 Minuten lang mit 20.000 Lichtern.',i:'Am sichersten die Show um 22 oder 23 Uhr anpeilen. Hin: Linie 1 bis Charles de Gaulle–Étoile, dann Linie 6 bis Trocadéro. Zurück: Linie 6 bis Étoile, dann Linie 2 direkt bis Anvers oder Barbès. Wer hoch will: Tickets nur auf toureiffel.paris und früh buchen.',q:'Trocadéro Paris'},
    {id:'huchette',n:'Caveau de la Huchette',opt:1,d:'Statt Eiffelturm, für alle, die lieber tanzen: Jazzkeller in einem mittelalterlichen Gewölbe im Quartier Latin, mit Swing-Bands.',q:'Caveau de la Huchette Paris'}]}
  ]},
- {id:'samstag',short:'Sa',name:'Samstag',theme:'Montmartre & Jazz',color:'var(--amber)',lead:'Morgens Montmartre direkt vor der Tür, nachmittags am Kanal entlang, abends Livejazz.',slots:[
+ {id:'samstag',short:'Sa',name:'Samstag',theme:'Montmartre & Jazz',color:'var(--red)',on:'#fff',lead:'Morgens Montmartre direkt vor der Tür, nachmittags am Kanal entlang, abends Livejazz.',slots:[
   {t:'Früh',s:[
    {id:'sacre',n:'Sacré-Cœur',d:'Weiße Basilika ganz oben auf dem Hügel mit einem der besten Blicke über Paris.',i:'Von der Unterkunft etwa 10 Minuten zu Fuß bergauf. Früh hingehen, ab etwa 11 Uhr wird es sehr voll.',q:'Sacré-Cœur Paris'},
    {id:'abreuvoir',n:'Rue de l’Abreuvoir',d:'Die vielleicht hübscheste Straße Montmartres, mit Kopfsteinpflaster und alten Häusern.',q:'Rue de l\'Abreuvoir Paris'},
@@ -338,7 +289,7 @@ var DAYS=[
    {id:'verrevole',n:'Abendessen: Le Verre Volé',opt:1,d:'Kleines, bekanntes Bistro mit Weinhandlung direkt am Canal Saint-Martin, einfache gute Küche und viele Naturweine. Eng und lebhaft, eher locker als fein.',i:'Etwa 20–30 € pro Person ohne Wein. Reservieren, die Tische sind meist voll. Alternativ einfach direkt in La Gare essen.',q:'Le Verre Volé 67 Rue de Lancry Paris'},
    {id:'gare',n:'La Gare',hl:1,d:'Jazzclub in einem stillgelegten Bahnhof der alten Pariser Ringbahn, nahe dem Parc de la Villette. Eintritt frei, mit Bar, Essen und einer Terrasse an den alten Gleisen.',i:'Konzerte meist ab 20–21 Uhr. Zurück: Linie 7 bis Stalingrad, dann Linie 2 bis Barbès-Rochechouart oder Anvers. Freitags und samstags fährt die Metro bis etwa 2 Uhr.',q:'La Gare 1 Avenue Corentin Cariou Paris'}]}
  ]},
- {id:'sonntag',short:'So',name:'Sonntag',theme:'Marais & Notre-Dame',color:'var(--plum)',lead:'Ausschlafen, dann der Marais und Notre-Dame. Sonntags haben im Marais viele Läden geöffnet.',slots:[
+ {id:'sonntag',short:'So',name:'Sonntag',theme:'Marais & Notre-Dame',color:'var(--yellow)',on:'#000',lead:'Ausschlafen, dann der Marais und Notre-Dame. Sonntags haben im Marais viele Läden geöffnet.',slots:[
   {t:'Früh',s:[
    {id:'sleep',n:'Ausschlafen & in Ruhe packen',rest:1,d:'Kein Wecker, Frühstück in der Unterkunft, Sachen packen.'}]},
   {t:'Vormittag',s:[
@@ -362,18 +313,25 @@ var TODOS=[
  {id:'t5',t:'Schlüssel am Freitag vor 23 Uhr an der Schlüsselbox abholen'}
 ];
 var TIPS=[
- 'Beim Betreten jedes Ladens „Bonjour“ sagen. Das gilt in Paris als selbstverständlich höflich.',
- 'Leitungswasser im Restaurant ist kostenlos: einfach „une carafe d’eau“ bestellen.',
- 'Der Service ist im Preis enthalten. Wer zufrieden war, rundet einfach etwas auf.',
- 'Am Tresen ist der Kaffee meist günstiger als am Tisch.',
- 'In der Bäckerei nach „une baguette tradition“ fragen. Die schmeckt besser als die normale.',
- 'Sonntags haben viele Läden zu. Der Marais ist die große Ausnahme.',
- 'Abends sind die Brücken an der Seine beleuchtet. Ein Spaziergang lohnt sich auch spät noch.',
- 'Am Sacré-Cœur sprechen euch Leute mit Freundschaftsbändern an. Freundlich „non, merci“ sagen und weitergehen.'
+ '„Un café“ ist ein Espresso. Am Tresen („au comptoir“) zahlt ihr oft deutlich weniger als am Tisch oder auf der Terrasse.',
+ 'Die Rechnung kommt nicht von allein. Kurz Blickkontakt, „l’addition, s’il vous plaît“. Lange sitzen bleiben ist völlig normal.',
+ 'Steak „à point“ ist in Paris eher rosa. Wer es durch will, bestellt „bien cuit“, und erntet vielleicht einen leidenden Blick.',
+ 'Mittags gibt es oft eine „formule“ oder ein Tagesmenü. Das ist meist deutlich günstiger als abends à la carte.',
+ 'Viele Bistros haben zwischen etwa 14:30 und 19 Uhr keine warme Küche. Pariser essen abends eher ab 20 Uhr.',
+ 'Umsteigen heißt in der Metro „correspondance“. An großen Stationen wie Châtelet kann der Fußweg dazwischen gut 10 Minuten dauern.',
+ 'Handy und Geldbeutel in der Metro und am Sacré-Cœur vorne tragen. Taschendiebe arbeiten oft zu zweit, einer lenkt ab.',
+ 'Am Sacré-Cœur binden einem Leute ungefragt Freundschaftsbänder ums Handgelenk und wollen dann Geld. Hand nicht hinhalten, weitergehen.',
+ 'Trinkgeld ist im Preis enthalten („service compris“). Für richtig guten Service lasst ihr ein paar Euro liegen, mehr nicht.'
 ];
 var PHRASES=[
- ['Bonjour !','Guten Tag!'],['Merci beaucoup','Vielen Dank'],['L’addition, s’il vous plaît','Die Rechnung, bitte'],
- ['Une carafe d’eau, s’il vous plaît','Eine Karaffe Leitungswasser, bitte'],['Où est le métro ?','Wo ist die Metro?'],['C’était délicieux !','Das war köstlich!']
+ ['Putain, c’est cher !','Verdammt, ist das teuer! „Putain“ ist das Allzweck-Fluchwort, ihr hört es ständig.'],
+ ['J’ai la flemme.','Ich hab keinen Bock. Wörtlich: Ich habe die Faulheit.'],
+ ['C’est pas mes oignons.','Geht mich nichts an. Wörtlich: Das sind nicht meine Zwiebeln.'],
+ ['Quel bordel !','Was für ein Chaos! Perfekt für die Metro zur Rushhour.'],
+ ['Les doigts dans le nez.','Kinderleicht. Wörtlich: mit den Fingern in der Nase.'],
+ ['On se fait un apéro ?','Gehen wir was trinken? Der wichtigste Satz für 18 Uhr.'],
+ ['Je suis crevé.','Ich bin fix und fertig. Für Sonntagabend.'],
+ ['Il pleut des cordes.','Es schüttet. Wörtlich: Es regnet Seile.']
 ];
 
 /* Speicher (nur in diesem Browser) */
@@ -389,14 +347,14 @@ function countOf(d){var a=stopsOf(d);return{done:a.filter(function(s){return don
 /* Tagesansichten bauen */
 DAYS.forEach(function(d){
   var el=document.getElementById('v-'+d.id);
-  el.style.setProperty('--c',d.color);
+  el.style.setProperty('--c',d.color);el.style.setProperty('--on',d.on);
   var h='<div class="wrap"><div class="dayhead"><div class="badge" aria-hidden="true">'+d.short+'</div><h2>'+d.name+'</h2><p>'+esc(d.lead)+'</p>'+
     '<div class="bar"><i id="bar-'+d.id+'"></i></div><div class="bar-txt" id="bartxt-'+d.id+'"></div></div>';
   d.slots.forEach(function(sl){
     h+='<div class="slot"><h3>'+esc(sl.t)+'</h3><div class="stops">';
     sl.s.forEach(function(s){
       h+='<article class="stop'+(s.hl?' hl':'')+(s.rest?' rest':'')+'" data-id="'+s.id+'"><div class="stop-head"><button type="button" class="check-btn" data-tick="'+s.id+'" aria-pressed="false" aria-label="'+esc(s.n)+' abhaken">✓</button>'+
-        '<button type="button" class="stop-toggle" aria-expanded="false"><span class="st-title"><span class="st-name">'+esc(s.n)+'</span>'+(s.opt?'<span class="tag">optional</span>':'')+(s.gift?'<span class="tag gift">🎁 Mitbringsel</span>':'')+(s.hl?'<span class="tag star">★ Highlight</span>':'')+'</span><span class="chev" aria-hidden="true">›</span></button>'+
+        '<button type="button" class="stop-toggle" aria-expanded="false"><span class="st-title"><span class="st-name">'+esc(s.n)+'</span>'+(s.opt?'<span class="tag">optional</span>':'')+(s.gift?'<span class="tag gift">Mitbringsel</span>':'')+(s.hl?'<span class="tag star">Highlight</span>':'')+'</span><span class="chev" aria-hidden="true">›</span></button>'+
         (s.q?'<a class="pin" target="_blank" rel="noopener" href="'+M(s.q)+'" aria-label="'+esc(s.n)+' in Google Maps öffnen">'+PIN+'</a>':'')+'</div>'+
         '<div class="stop-body" hidden><p>'+esc(s.d)+'</p>'+(s.i?'<p class="info">'+esc(s.i)+'</p>':'')+
         (s.q?'<div class="row"><a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Route in Google Maps</a></div>':'')+'</div></article>';
@@ -413,7 +371,7 @@ function renderLines(){
   DAYS.forEach(function(d){
     var c=countOf(d), dots='';
     stopsOf(d).forEach(function(s){dots+='<span class="dot'+(done(s.id)?' done':'')+(s.hl?' star':'')+'"></span>';});
-    h+='<a class="line" href="#'+d.id+'" style="--c:'+d.color+'"><div class="line-head"><div class="badge" aria-hidden="true">'+d.short+'</div><div><b>'+d.name+'</b><small>'+esc(d.theme)+'</small></div><span class="count">'+c.done+' / '+c.all+'</span></div><div class="track" aria-hidden="true">'+dots+'</div></a>';
+    h+='<a class="line" href="#'+d.id+'" style="--c:'+d.color+';--on:'+d.on+'"><div class="line-head"><div class="badge" aria-hidden="true">'+d.short+'</div><div><b>'+d.name+'</b><small>'+esc(d.theme)+'</small></div><span class="count">'+c.done+' / '+c.all+'</span></div><div class="track" aria-hidden="true">'+dots+'</div></a>';
   });
   document.getElementById('lines').innerHTML=h;
 }
@@ -452,7 +410,7 @@ function renderAll(){renderLines();renderScore();renderNext();renderDays();}
 var toastT;
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},2200);}
 function confetti(){
-  var cols=['#2E5A4C','#C98A1E','#8C4A68','#8DC0AB','#E7B252'];
+  var cols=['#E4002B','#0033A0','#FFD100','#000000'];
   for(var i=0;i<44;i++){var c=document.createElement('i');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=cols[i%cols.length];c.style.animationDuration=(1.6+Math.random()*1.6)+'s';c.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(c);setTimeout(function(x){return function(){x.remove();};}(c),3800);}
 }
 var CHEERS=['Très bien!','Super!','Magnifique!','Bravo!','Parfait!'];
@@ -511,7 +469,7 @@ function show(){
   var h=(location.hash||'').replace('#','');if(VIEWS.indexOf(h)<0)h='start';
   VIEWS.forEach(function(v){document.getElementById('v-'+v).classList.toggle('on',v===h);var a=document.querySelector('.tabbar a[data-v="'+v+'"]');if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   var d=DAYS.filter(function(x){return x.id===h;})[0];
-  document.documentElement.style.setProperty('--c',d?d.color:'var(--green)');
+  document.documentElement.style.setProperty('--c',d?d.color:'var(--ink)');document.documentElement.style.setProperty('--on',d?d.on:'#fff');
   window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',show);
