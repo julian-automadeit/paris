@@ -194,12 +194,12 @@ main{position:relative;z-index:1}
 .score b{font-size:22px;letter-spacing:-.02em}
 .next{padding:22px 22px 20px 26px}
 .next h3{font-size:clamp(36px,11vw,52px);line-height:.92;letter-spacing:-.045em;margin-top:8px}
-.line{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;padding:16px 18px}
+.line{display:grid;grid-template-columns:auto 1fr auto;column-gap:14px;align-items:center;padding:16px 18px}
 .line-head{display:contents}
-.line .badge{grid-row:1 / span 2;width:auto;height:auto;background:none;color:var(--c);font-size:64px;line-height:.8;letter-spacing:-.06em;border-radius:0}
-.line-head > div{grid-column:2}
-.line-head .count{grid-column:2;grid-row:1;justify-self:end;align-self:start}
-.track{grid-column:2;margin:10px 0 0}
+.line .badge{grid-column:1;grid-row:1;display:block;justify-self:start;text-align:left;width:auto;height:auto;background:none;color:var(--c);font-size:56px;line-height:.8;letter-spacing:-.06em;border-radius:0}
+.line-head > div{grid-column:2;grid-row:1;text-align:left}
+.line-head .count{grid-column:3;grid-row:1;align-self:start;margin:0}
+.track{grid-column:1 / -1;grid-row:2;margin:14px 0 0}
 .dayhead .badge{display:none}
 .dayhead{padding-top:36px}
 .dayhead h2{font-size:clamp(68px,22vw,128px);line-height:.82;letter-spacing:-.06em;margin-left:-.04em}
@@ -247,7 +247,7 @@ main{position:relative;z-index:1}
       <div class="home-grid">
         <div>
           <div class="sec">
-            <h2>Eure drei Linien</h2>
+            <h2>Eure drei Tage</h2>
             <div class="lines" id="lines"></div>
           </div>
           <div class="sec">
