@@ -296,6 +296,8 @@ var DAYS=[
    {id:'rose',n:'La Maison Rose',d:'Kleines rosa Restaurant an einer Straßenecke, ein bekanntes Fotomotiv.',q:'La Maison Rose Montmartre Paris'},
    {id:'museemm',n:'Musée de Montmartre',d:'Im Haus, in dem Renoir sein Atelier hatte. Zeigt das Künstlerleben um 1900 und hat einen Garten mit Blick auf den letzten Weinberg von Paris.',q:'Musée de Montmartre Paris'},
    {id:'tertre',n:'Place du Tertre',d:'Der Platz mit den Straßenmalern, sehr touristisch. Nur kurz durchlaufen.',q:'Place du Tertre Paris'}]},
+  {t:'Mittag',s:[
+   {id:'pause2',n:'Mittagspause in der Unterkunft',rest:1,d:'Die Unterkunft liegt direkt unten am Hügel. Hinlegen, Kaffee kochen, Kräfte sammeln für den langen Abend.'}]},
   {t:'Nachmittag',s:[
    {id:'canal',n:'Canal Saint-Martin',d:'Kanal mit eisernen Fußgängerbrücken und Schleusen, wo die Pariser selbst unterwegs sind.',q:'Canal Saint-Martin Paris'},
    {id:'villette',n:'Bassin de la Villette',d:'Breites Wasserbecken am Ende des Kanals mit Bars und Sitzplätzen am Ufer. Von hier ist es nicht mehr weit zu La Gare.',q:'Bassin de la Villette Paris'},
@@ -303,21 +305,24 @@ var DAYS=[
   {t:'Abend',s:[
    {id:'gare',n:'La Gare',hl:1,d:'Jazzclub in einem stillgelegten Bahnhof der alten Pariser Ringbahn, nahe dem Parc de la Villette. Eintritt frei, mit Bar, Essen und einer Terrasse an den alten Gleisen.',i:'Konzerte meist ab 20–21 Uhr. Zurück: Linie 7 bis Stalingrad, dann Linie 2 bis Barbès-Rochechouart oder Anvers. Freitags und samstags fährt die Metro bis etwa 2 Uhr.',q:'La Gare 1 Avenue Corentin Cariou Paris'}]}
  ]},
- {id:'sonntag',short:'So',name:'Sonntag',theme:'Marais & Seine',color:'var(--plum)',lead:'Ruhig im Marais, wo sonntags viele Läden geöffnet haben.',slots:[
+ {id:'sonntag',short:'So',name:'Sonntag',theme:'Marais & Notre-Dame',color:'var(--plum)',lead:'Ausschlafen, dann der Marais und Notre-Dame. Sonntags haben im Marais viele Läden geöffnet.',slots:[
+  {t:'Früh',s:[
+   {id:'sleep',n:'Ausschlafen & in Ruhe packen',rest:1,d:'Kein Wecker, Frühstück in der Unterkunft, Sachen packen.'}]},
   {t:'Vormittag',s:[
    {id:'marais',n:'Le Marais',d:'Altes Adelsviertel mit kleinen Gassen, Boutiquen, Galerien und Cafés, ideal für einen Brunch.',q:'Le Marais Paris'},
    {id:'vosges',n:'Place des Vosges',d:'Ältester Platz von Paris, quadratisch mit roten Backsteinhäusern und Arkaden rundherum, in der Mitte ein Park.',q:'Place des Vosges Paris'}]},
   {t:'Mittag',s:[
    {id:'falafel',n:'L’As du Fallafel',d:'Bekanntester Falafel-Laden in der Rue des Rosiers im alten jüdischen Viertel. Die Schlange geht meist schnell.',q:'L\'As du Fallafel Paris'}]},
-  {t:'Nachmittag, je nach Abreise',s:[
-   {id:'berthillon',n:'Île Saint-Louis & Berthillon',d:'Kleine, ruhige Insel in der Seine. Bei Berthillon gibt es das bekannteste Eis der Stadt.',q:'Berthillon Île Saint-Louis Paris'},
-   {id:'notredame',n:'Seine-Ufer bei Notre-Dame',d:'Zum Abschluss an der Seine spazieren, mit Blick auf die Kathedrale.',q:'Cathédrale Notre-Dame de Paris'}]}
+  {t:'Nachmittag',s:[
+   {id:'notredame',n:'Cathédrale Notre-Dame',hl:1,d:'Die gotische Kathedrale auf der Île de la Cité, nach dem Brand restauriert und seit Dezember 2024 wieder offen. Vom Marais etwa 15 Minuten zu Fuß.',i:'Eintritt frei. Am besten einen kostenlosen Zeitslot auf notredamedeparis.fr oder in der offiziellen App reservieren, die Slots gibt es erst 2–3 Tage vorher. Etwa 45–60 Minuten einplanen. Metro: Cité, Linie 4 fährt direkt ab Barbès.',q:'Cathédrale Notre-Dame de Paris'},
+   {id:'berthillon',n:'Île Saint-Louis & Berthillon',d:'Gleich hinter Notre-Dame über die Brücke: kleine, ruhige Insel. Bei Berthillon gibt es das bekannteste Eis der Stadt, danach an der Seine ausklingen lassen.',q:'Berthillon Île Saint-Louis Paris'}]}
  ]}
 ];
 var TODOS=[
  {id:'t1',t:'Tickets fürs Musée d’Orsay mit festem Zeitfenster online buchen'},
  {id:'t2',t:'Der Gastgeberin sagen, ob ihr im Hochbett oder auf der Schlafcouch schlaft'},
  {id:'t3',t:'Programm von La Gare für Samstag anschauen'},
+ {id:'t6',t:'Notre-Dame: 2–3 Tage vorher kostenlosen Zeitslot für Sonntag reservieren'},
  {id:'t4',t:'Optional: Tisch fürs Abendessen am Freitag reservieren'},
  {id:'t5',t:'Schlüssel am Freitag vor 23 Uhr an der Schlüsselbox abholen'}
 ];
