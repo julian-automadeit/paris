@@ -193,6 +193,32 @@ footer a{color:var(--muted)}
   .phrase .in,.bar i,.toast,.stop{transition:none}
   .confetti{display:none}
 }
+/* Ruhigere Ansicht */
+.greet{font-size:15.5px}
+.next p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stops{gap:8px;align-items:start}
+.stop{padding:0}
+.stop-head{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px}
+.check-btn{flex:none;width:32px;height:32px;border-radius:50%;border:2px solid var(--c);background:transparent;color:transparent;font-weight:700;font-size:15px;display:grid;place-items:center;cursor:pointer;padding:0}
+.check-btn[aria-pressed="true"]{background:var(--c);color:var(--on)}
+.stop-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:0;padding:6px 0;text-align:left;cursor:pointer;color:inherit}
+.st-title{flex:1;min-width:0}
+.st-name{display:block;font:400 20px/1.2 Gloock,Georgia,"Times New Roman",serif}
+.stop.done .st-name{text-decoration:line-through;text-decoration-thickness:2px}
+.stop .tag{margin:2px 8px 0 0;vertical-align:0}
+.stop .tag.star{color:var(--amber)}
+.chev{flex:none;color:var(--muted);font-size:24px;line-height:1;transition:transform .2s}
+.stop.open .chev{transform:rotate(90deg)}
+.pin{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green)}
+.pin svg{width:18px;height:18px}
+.stop-body{padding:0 16px 16px 54px}
+.stop-body[hidden]{display:none}
+.stop-body p:first-child{margin-top:0}
+.stop.hl{border:1px solid var(--line);box-shadow:inset 3px 0 0 var(--amber)}
+.stop.rest .check-btn{border-style:dashed}
+.tabbar nav{grid-template-columns:repeat(5,1fr)}
+@media (max-width:380px){.stop-body{padding:0 14px 14px 14px}.st-name{font-size:19px}.pin{width:36px;height:36px}}
+@media (prefers-reduced-motion: reduce){.chev{transition:none}}
 </style>
 </head>
 <body>
@@ -203,7 +229,7 @@ footer a{color:var(--muted)}
     <div class="wrap">
       <header class="hero">
         <div class="sign"><h1>Paris</h1><p>Freitagmorgen bis Sonntagabend</p></div>
-        <p class="greet">Drei Tage mit Kunst, Montmartre, Livejazz und einem ruhigen Sonntag. Hakt unterwegs ab, was ihr gesehen habt.</p>
+        <p class="greet">Tippt einen Tag an und hakt ab, was ihr gesehen habt.</p>
       </header>
 
       <div class="score" aria-live="polite">
@@ -258,6 +284,7 @@ footer a{color:var(--muted)}
   <section class="view" id="v-freitag"></section>
   <section class="view" id="v-samstag"></section>
   <section class="view" id="v-sonntag"></section>
+  <section class="view" id="v-infos" aria-label="Infos"><div class="wrap"><div class="dayhead"><h2>Infos</h2><p>Checkliste, Unterkunft und ein bisschen Spaß für unterwegs.</p></div><div class="home-grid" id="infos-grid"></div></div></section>
 </main>
 
 <div class="tabbar">
@@ -266,6 +293,7 @@ footer a{color:var(--muted)}
     <a href="#freitag" data-v="freitag"><span class="ic" aria-hidden="true">Fr</span>Freitag</a>
     <a href="#samstag" data-v="samstag"><span class="ic" aria-hidden="true">Sa</span>Samstag</a>
     <a href="#sonntag" data-v="sonntag"><span class="ic" aria-hidden="true">So</span>Sonntag</a>
+    <a href="#infos" data-v="infos"><span class="ic" aria-hidden="true">i</span>Infos</a>
   </nav>
 </div>
 <div class="toast" id="toast" role="status"></div>
@@ -367,9 +395,11 @@ DAYS.forEach(function(d){
   d.slots.forEach(function(sl){
     h+='<div class="slot"><h3>'+esc(sl.t)+'</h3><div class="stops">';
     sl.s.forEach(function(s){
-      h+='<article class="stop'+(s.hl?' hl':'')+(s.rest?' rest':'')+'" data-id="'+s.id+'"><h4>'+esc(s.n)+(s.opt?'<span class="tag">optional</span>':'')+(s.gift?'<span class="tag gift">🎁 Mitbringsel</span>':'')+'</h4><p>'+esc(s.d)+'</p>'+(s.i?'<p class="info">'+esc(s.i)+'</p>':'')+
-        '<div class="row">'+(s.q?'<a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Google Maps</a>':'')+
-        '<button type="button" class="btn tick" data-tick="'+s.id+'" aria-pressed="false">Abhaken</button></div></article>';
+      h+='<article class="stop'+(s.hl?' hl':'')+(s.rest?' rest':'')+'" data-id="'+s.id+'"><div class="stop-head"><button type="button" class="check-btn" data-tick="'+s.id+'" aria-pressed="false" aria-label="'+esc(s.n)+' abhaken">✓</button>'+
+        '<button type="button" class="stop-toggle" aria-expanded="false"><span class="st-title"><span class="st-name">'+esc(s.n)+'</span>'+(s.opt?'<span class="tag">optional</span>':'')+(s.gift?'<span class="tag gift">🎁 Mitbringsel</span>':'')+(s.hl?'<span class="tag star">★ Highlight</span>':'')+'</span><span class="chev" aria-hidden="true">›</span></button>'+
+        (s.q?'<a class="pin" target="_blank" rel="noopener" href="'+M(s.q)+'" aria-label="'+esc(s.n)+' in Google Maps öffnen">'+PIN+'</a>':'')+'</div>'+
+        '<div class="stop-body" hidden><p>'+esc(s.d)+'</p>'+(s.i?'<p class="info">'+esc(s.i)+'</p>':'')+
+        (s.q?'<div class="row"><a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Route in Google Maps</a></div>':'')+'</div></article>';
     });
     h+='</div></div>';
   });
@@ -410,9 +440,8 @@ function renderDays(){
     document.getElementById('bar-'+d.id).style.width=(c.all?c.done/c.all*100:0)+'%';
     document.getElementById('bartxt-'+d.id).textContent=c.done+' von '+c.all+' Orten erledigt';
     stopsOf(d).forEach(function(s){
-      var card=document.querySelector('.stop[data-id="'+s.id+'"]'),b=card.querySelector('.tick');
+      var card=document.querySelector('.stop[data-id="'+s.id+'"]'),b=card.querySelector('.check-btn');
       card.classList.toggle('done',done(s.id));
-      b.textContent=done(s.id)?'✓ Erledigt':'Abhaken';
       b.setAttribute('aria-pressed',done(s.id)?'true':'false');
     });
   });
@@ -440,6 +469,21 @@ document.addEventListener('click',function(e){
   }
 });
 
+/* Karten auf- und zuklappen */
+document.addEventListener('click',function(e){
+  var tg=e.target.closest('.stop-toggle');if(!tg)return;
+  var card=tg.closest('.stop'),body=card.querySelector('.stop-body'),open=body.hasAttribute('hidden');
+  if(open)body.removeAttribute('hidden');else body.setAttribute('hidden','');
+  card.classList.toggle('open',open);tg.setAttribute('aria-expanded',open?'true':'false');
+});
+
+/* Infos in eigene Ansicht verschieben */
+(function(){
+  var ig=document.getElementById('infos-grid');
+  ['todos','install','dice-btn','phrases'].forEach(function(id){var s=document.getElementById(id).closest('.sec');if(s)ig.appendChild(s);});
+  var hg=document.querySelector('#v-start .home-grid');if(hg)hg.classList.remove('home-grid');
+})();
+
 /* Würfel */
 var lastTip=-1;
 document.getElementById('dice-btn').addEventListener('click',function(){
@@ -462,7 +506,7 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();def
 document.getElementById('install').addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred=null;this.classList.remove('on');});
 
 /* Ansichten */
-var VIEWS=['start','freitag','samstag','sonntag'];
+var VIEWS=['start','freitag','samstag','sonntag','infos'];
 function show(){
   var h=(location.hash||'').replace('#','');if(VIEWS.indexOf(h)<0)h='start';
   VIEWS.forEach(function(v){document.getElementById('v-'+v).classList.toggle('on',v===h);var a=document.querySelector('.tabbar a[data-v="'+v+'"]');if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
