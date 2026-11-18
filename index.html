@@ -72,7 +72,7 @@ h1,h2,h3,h4{font-weight:700}
 .next .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border:0;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;min-height:44px}
 .btn svg{width:18px;height:18px;flex:none}
-.btn-maps{background:var(--blue);color:#fff}
+.btn-maps{background:var(--c);color:var(--on)}
 .btn-ghost{background:var(--soft);color:var(--ink)}
 .dice{display:flex;gap:14px;align-items:center;background:var(--yellow);padding:16px}
 .dice button{flex:none;width:56px;height:56px;border:0;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);font-size:28px;cursor:pointer}
@@ -204,6 +204,9 @@ main{position:relative;z-index:1}
 .stop.hl{box-shadow:inset 4px 0 0 var(--c),var(--shadow)}
 .stop.hl .st-name{font-size:23px;letter-spacing:-.03em}
 .stop.hl .stop-head{padding-top:14px;padding-bottom:14px}
+.phrase .in{display:grid;height:auto;min-height:112px}
+.phrase .f,.phrase .b{position:relative;inset:auto;grid-area:1 / 1;min-height:112px}
+.phrase:focus-visible{border-radius:var(--r)}
 @media (min-width:640px){
   .slot{display:grid;grid-template-columns:200px 1fr;column-gap:28px;align-items:start}
   .slot > h3{position:sticky;top:20px;margin:6px 0 0}
@@ -398,7 +401,7 @@ DAYS.forEach(function(d){
         '<button type="button" class="stop-toggle" aria-expanded="false"><span class="st-title"><span class="st-name">'+esc(s.n)+'</span>'+(s.opt?'<span class="tag">optional</span>':'')+(s.gift?'<span class="tag gift">Mitbringsel</span>':'')+(s.hl?'<span class="tag star">Highlight</span>':'')+'</span><span class="chev" aria-hidden="true">›</span></button>'+
         (s.q?'<a class="pin" target="_blank" rel="noopener" href="'+M(s.q)+'" aria-label="'+esc(s.n)+' in Google Maps öffnen">'+PIN+'</a>':'')+'</div>'+
         '<div class="stop-body" hidden><p>'+esc(s.d)+'</p>'+(s.i?'<p class="info">'+esc(s.i)+'</p>':'')+
-        (s.q?'<div class="row"><a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Route in Google Maps</a></div>':'')+'</div></article>';
+        (s.q?'<div class="row"><a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Google Maps</a></div>':'')+'</div></article>';
     });
     h+='</div></div>';
   });
@@ -429,8 +432,9 @@ function renderNext(){
   for(var i=0;i<DAYS.length&&!nx;i++){var a=stopsOf(DAYS[i]);for(var j=0;j<a.length;j++){if(!done(a[j].id)&&!a[j].opt){nx=a[j];nd=DAYS[i];break;}}}
   var el=document.getElementById('next');
   if(!nx){el.innerHTML='<div class="lbl">Alles erledigt</div><h3>Merci, Paris!</h3><p>Ihr habt jeden Ort auf dem Plan geschafft.</p>';return;}
+  el.style.setProperty('--c',nd.color);el.style.setProperty('--on',nd.on);
   el.innerHTML='<div class="lbl">'+nd.name+'</div><h3>'+esc(nx.n)+'</h3><p>'+esc(nx.d)+'</p><div class="row">'+
-    (nx.q?'<a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(nx.q)+'">'+PIN+'Route starten</a>':'')+
+    (nx.q?'<a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(nx.q)+'">'+PIN+'Google Maps</a>':'')+
     '<button type="button" class="btn btn-ghost" data-tick="'+nx.id+'">Erledigt</button></div>';
 }
 function renderDays(){
