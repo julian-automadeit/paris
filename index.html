@@ -3,331 +3,463 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2E5A4C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Paris">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Paris-Wochenende</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F1F4EF; --surface:#FFFFFF; --ink:#1D2B26; --muted:#5B6B64;
-  --green:#2E5A4C; --green-soft:#DCE7E1; --amber:#C98A1E; --line:#CBD5CD;
-  --on-green:#F1F4EF;
-  color-scheme: light;
-  box-sizing:border-box;
+  --bg:#F1F4EF; --surface:#FFFFFF; --ink:#1D2B26; --muted:#5B6B64; --line:#CBD5CD;
+  --green:#2E5A4C; --green-soft:#DCE7E1; --amber:#C98A1E; --plum:#8C4A68; --on:#F1F4EF;
+  --c:var(--green);
+  color-scheme:light; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7;
-    --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --line:#2C3B34;
-    --on-green:#111915; color-scheme: dark;
+    --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7; --line:#2C3B34;
+    --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --plum:#D795B3; --on:#111915; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7;
-  --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --line:#2C3B34;
-  --on-green:#111915; color-scheme: dark;
+  --bg:#111915; --surface:#19241F; --ink:#E7EEE9; --muted:#9DB0A7; --line:#2C3B34;
+  --green:#8DC0AB; --green-soft:#22342C; --amber:#E7B252; --plum:#D795B3; --on:#111915; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 17px/1.55 Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button{font:inherit;color:inherit}
 .wrap{max-width:620px;margin:0 auto;padding:0 20px}
+.view{display:none}
+.view.on{display:block}
+h1,h2,h3,h4{font-weight:400}
+.serif{font-family:Gloock,Georgia,"Times New Roman",serif}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 
-/* Hero: Guimard-Métro-Schild */
-.hero{padding:40px 0 28px}
-.sign{display:inline-block;border:2px solid var(--green);border-radius:999px 999px 14px 14px;padding:18px 28px 14px;text-align:center}
-.sign h1{margin:0;font:400 clamp(56px,17vw,92px)/0.95 Gloock,Georgia,"Times New Roman",serif;color:var(--green);letter-spacing:-0.01em}
+/* ---------- Start ---------- */
+.hero{padding:32px 0 8px;text-align:center}
+.sign{display:inline-block;border:2px solid var(--green);border-radius:999px 999px 16px 16px;padding:20px 32px 14px}
+.sign h1{margin:0;font:400 clamp(60px,19vw,96px)/.95 Gloock,Georgia,serif;color:var(--green)}
 .sign p{margin:6px 0 0;font-size:15px;color:var(--muted)}
-.intro{margin:22px 0 0;max-width:34em;color:var(--ink)}
-.base{margin:14px 0 0;font-size:15px;color:var(--muted)}
+.greet{margin:18px auto 0;max-width:30em;color:var(--muted);font-size:16px}
 
-/* Tagesauswahl */
-.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line)}
-.days nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--green-soft);border-radius:14px;padding:5px}
-.days a{display:block;text-align:center;text-decoration:none;color:var(--green);font-weight:600;padding:10px 4px;border-radius:10px;font-size:16px}
-.days a small{display:block;font-weight:400;font-size:12.5px;opacity:.85}
-.days a[aria-current="page"]{background:var(--green);color:var(--on-green)}
-.days a:focus-visible,.maps:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.score{margin:26px 0 0;display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.ring{--p:0;flex:none;width:68px;height:68px;border-radius:50%;background:conic-gradient(var(--amber) calc(var(--p)*1%),var(--green-soft) 0);display:grid;place-items:center}
+.ring span{width:52px;height:52px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-weight:700;font-size:16px}
+.score b{display:block;font-size:18px}
+.score small{color:var(--muted);font-size:14.5px}
+
+.sec{margin:30px 0 0}
+.sec > h2{margin:0 0 12px;font:400 26px/1.2 Gloock,Georgia,serif}
+
+/* Linienplan-Karten */
+.lines{display:grid;gap:12px}
+.line{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;cursor:pointer;text-decoration:none;color:inherit}
+.line-head{display:flex;align-items:center;gap:12px}
+.badge{flex:none;width:40px;height:40px;border-radius:50%;background:var(--c);color:var(--on);display:grid;place-items:center;font-weight:700;font-size:17px}
+.line-head b{display:block;font-size:19px}
+.line-head small{display:block;color:var(--muted);font-size:14px}
+.line-head .count{margin-left:auto;font-weight:600;color:var(--c);font-size:15px;white-space:nowrap}
+.track{position:relative;display:flex;justify-content:space-between;align-items:center;margin:16px 4px 2px;height:16px}
+.track::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:var(--c);border-radius:2px;opacity:.35}
+.dot{position:relative;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--c)}
+.dot.done{background:var(--c)}
+.dot.star{width:18px;height:18px}
+
+/* Als Nächstes */
+.next{background:var(--green);color:var(--on);border-radius:20px;padding:18px 18px 16px}
+.next .lbl{font-size:14px;opacity:.85}
+.next h3{margin:4px 0 0;font:400 28px/1.15 Gloock,Georgia,serif}
+.next p{margin:6px 0 0;opacity:.92}
+.next .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;border-radius:12px;border:0;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;min-height:44px}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-maps{background:var(--green);color:var(--on)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.next .btn-maps{background:var(--on);color:var(--green)}
+.next .btn-ghost{color:var(--on);border-color:color-mix(in srgb,var(--on) 45%,transparent)}
+
+/* Überrasch mich */
+.dice{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px dashed var(--amber);border-radius:18px;padding:16px 18px}
+.dice button{flex:none;width:58px;height:58px;border-radius:16px;border:0;background:var(--amber);color:#fff;font-size:30px;cursor:pointer}
+.dice p{margin:0;font-size:16px}
+.dice small{display:block;color:var(--muted);font-size:13.5px;margin-bottom:2px}
+
+/* Sprachführer */
+.phrases{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phrase{perspective:600px;border:0;background:none;padding:0;cursor:pointer;min-height:96px}
+.phrase .in{position:relative;display:block;height:100%;min-height:96px;transition:transform .45s;transform-style:preserve-3d}
+.phrase.flip .in{transform:rotateY(180deg)}
+.phrase .f,.phrase .b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:10px;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.phrase .f{background:var(--surface);border:1px solid var(--line);font:400 18px/1.25 Gloock,Georgia,serif}
+.phrase .b{background:var(--green-soft);color:var(--green);transform:rotateY(180deg);font-weight:600;font-size:15.5px}
+.hint{margin:8px 0 0;color:var(--muted);font-size:14px}
 
 /* Checkliste */
-.todo{margin:24px 0 8px;padding:16px 18px;border-left:4px solid var(--amber);background:var(--surface);border-radius:0 12px 12px 0}
-.todo h2{margin:0 0 8px;font:400 22px/1.2 Gloock,Georgia,serif}
-.todo ul{margin:0;padding-left:20px}
-.todo li{margin:4px 0}
+.checks{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:6px 6px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;cursor:pointer}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--green);border-radius:7px;display:grid;place-items:center;cursor:pointer}
+.check input:checked{background:var(--green)}
+.check input:checked::after{content:"";width:6px;height:11px;border:solid var(--on);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
 
-/* Tag */
-.day{display:none;padding:26px 0 48px}
-.day.on{display:block}
-.day > h2{margin:0;font:400 38px/1.1 Gloock,Georgia,serif}
-.day > .lead{margin:6px 0 0;color:var(--muted)}
+.stay{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.stay p{margin:0}
+.stay p + p{margin-top:6px;color:var(--muted);font-size:15px}
+.install{display:none;margin-top:12px}
+.install.on{display:inline-flex}
 
-/* Zeitleiste */
+/* ---------- Tag ---------- */
+.dayhead{padding:28px 0 4px}
+.dayhead .badge{width:48px;height:48px;font-size:20px;margin-bottom:12px}
+.dayhead h2{margin:0;font:400 42px/1.05 Gloock,Georgia,serif}
+.dayhead p{margin:6px 0 0;color:var(--muted)}
+.bar{margin-top:16px;height:8px;border-radius:4px;background:var(--green-soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--c);border-radius:4px;transition:width .4s}
+.bar-txt{margin-top:6px;font-size:14px;color:var(--muted)}
+
 .slot{position:relative;margin-top:28px;padding-left:26px}
-.slot::before{content:"";position:absolute;left:6px;top:10px;bottom:-28px;width:2px;background:var(--line)}
+.slot::before{content:"";position:absolute;left:6px;top:10px;bottom:-28px;width:3px;background:var(--c);opacity:.3;border-radius:2px}
 .slot:last-child::before{bottom:0}
-.slot > h3{position:relative;margin:0 0 10px;font-size:14px;font-weight:600;color:var(--amber)}
-.slot > h3::before{content:"";position:absolute;left:-26px;top:3px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--amber)}
-
-.stop{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;margin:0 0 12px}
-.stop h4{margin:0;font:400 23px/1.2 Gloock,Georgia,serif}
-.stop .opt{font:500 13px Figtree,sans-serif;color:var(--muted);margin-left:6px;vertical-align:2px}
-.stop p{margin:6px 0 0;color:var(--ink)}
-.stop .info{font-size:15px;color:var(--muted)}
-.maps{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--green);color:var(--on-green);text-decoration:none;font-weight:600;font-size:15px}
-.maps svg{width:18px;height:18px;flex:none}
+.slot > h3{position:relative;margin:0 0 10px;font-size:14.5px;font-weight:600;color:var(--c)}
+.slot > h3::before{content:"";position:absolute;left:-26px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--c)}
+.stops{display:grid;gap:12px}
+.stop{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;transition:opacity .25s}
+.stop.hl{border:2px solid var(--amber)}
 .stop.rest{background:transparent;border-style:dashed}
-.stop.highlight{border:2px solid var(--amber)}
+.stop h4{margin:0;font:400 23px/1.2 Gloock,Georgia,serif}
+.stop .tag{display:inline-block;margin-left:6px;font:600 12.5px Figtree,sans-serif;color:var(--muted);vertical-align:3px}
+.stop p{margin:6px 0 0}
+.stop .info{font-size:15px;color:var(--muted)}
+.stop .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stop.done{opacity:.6}
+.stop.done h4{text-decoration:line-through;text-decoration-thickness:2px}
+.tick{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.stop.done .tick{background:var(--c);border-color:var(--c);color:var(--on)}
+.back{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;padding:8px 0}
 
-/* Fold: schmales Außendisplay */
+/* ---------- Untere Navigation ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.tabbar nav{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:12px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600}
+.tabbar a .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;border:2px solid currentColor}
+.tabbar a[aria-current="page"]{color:var(--c)}
+.tabbar a[aria-current="page"] .ic{background:var(--c);border-color:var(--c);color:var(--on)}
+
+/* Toast + Konfetti */
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:30;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:600;font-size:15px;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 40px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:40;pointer-events:none;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+
+footer{padding:34px 0 10px;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted)}
+
+/* Fold zugeklappt */
 @media (max-width:380px){
   body{font-size:16px}
   .wrap{padding:0 14px}
-  .hero{padding:28px 0 20px}
-  .sign{padding:14px 20px 12px}
-  .days a{font-size:14.5px;padding:9px 2px}
-  .days a small{font-size:11.5px}
-  .slot{padding-left:22px}
-  .slot > h3::before{left:-22px}
+  .sign{padding:16px 22px 12px}
   .stop{padding:14px 13px 12px}
   .stop h4{font-size:21px}
-  .maps{width:100%;justify-content:center}
+  .stop .row .btn{flex:1}
+  .slot{padding-left:22px}
+  .slot > h3::before{left:-22px}
+  .phrase .f{font-size:16px}
+  .tabbar a{font-size:11.5px}
 }
-/* Fold aufgeklappt / Tablet: zwei Spalten */
+/* Fold aufgeklappt / Tablet */
 @media (min-width:640px){
   .wrap{max-width:920px;padding:0 28px}
-  .hero{display:grid;grid-template-columns:auto 1fr;gap:12px 32px;align-items:center}
-  .hero .intro,.hero .base{grid-column:2;margin:0}
-  .hero .sign{grid-row:1 / span 2}
-  .days nav{max-width:560px}
-  .slot{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .slot > h3{grid-column:1 / -1;margin-bottom:0}
-  .stop{margin:0}
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start}
+  .home-grid .sec{margin-top:30px}
+  .phrases{grid-template-columns:repeat(3,1fr)}
+  .stops{grid-template-columns:1fr 1fr}
 }
-/* Geräte mit Scharnier (z. B. Surface Duo): nichts unter das Scharnier legen */
 @media (horizontal-viewport-segments:2){
-  .slot{column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 24px)}
+  .home-grid,.stops{column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 24px)}
 }
-footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
-footer a{color:var(--muted)}
-@media (prefers-reduced-motion: no-preference){.days a{transition:background .15s,color .15s}}
+@media (prefers-reduced-motion: reduce){
+  .phrase .in,.bar i,.toast,.stop{transition:none}
+  .confetti{display:none}
+}
 </style>
 </head>
 <body>
-<header class="wrap hero">
-  <div class="sign">
-    <h1>Paris</h1>
-    <p>Freitagmorgen bis Sonntagabend</p>
-  </div>
-  <p class="intro">Ein Wochenende mit Kunst am Freitag, Montmartre und Livejazz am Samstag und einem ruhigen Sonntag im Marais.</p>
-  <p class="base">Unterkunft: Studio am Fuß von Montmartre, zwischen Pigalle und Barbès. Nächste Metro: Anvers und Barbès-Rochechouart (Linie 2). Jeder Ort hat einen Knopf, der ihn direkt in Google Maps öffnet.</p>
-</header>
 
-<div class="days">
-  <div class="wrap">
-    <nav aria-label="Tag wählen">
-      <a href="#freitag" data-day="freitag">Freitag<small>Kunst</small></a>
-      <a href="#samstag" data-day="samstag">Samstag<small>Montmartre & Jazz</small></a>
-      <a href="#sonntag" data-day="sonntag">Sonntag<small>Marais</small></a>
-    </nav>
-  </div>
-</div>
+<main>
+  <!-- START -->
+  <section class="view" id="v-start" aria-label="Start">
+    <div class="wrap">
+      <header class="hero">
+        <div class="sign"><h1>Paris</h1><p>Freitagmorgen bis Sonntagabend</p></div>
+        <p class="greet">Drei Tage mit Kunst, Montmartre, Livejazz und einem ruhigen Sonntag. Hakt unterwegs ab, was ihr gesehen habt.</p>
+      </header>
 
-<main class="wrap">
-  <aside class="todo">
-    <h2>Vorher erledigen</h2>
-    <ul>
-      <li>Tickets fürs Musée d’Orsay mit festem Zeitfenster online buchen</li>
-      <li>Programm von La Gare für Samstag anschauen</li>
-      <li>Optional: Tisch fürs Abendessen am Freitag reservieren</li>
-      <li>Schlüssel am Freitag vor 23 Uhr an der Schlüsselbox abholen (der Code kommt vorher von der Gastgeberin)</li>
-    </ul>
-  </aside>
+      <div class="score" aria-live="polite">
+        <div class="ring" id="ring"><span id="ring-num">0%</span></div>
+        <div><b id="score-title">Noch alles vor euch</b><small id="score-sub">0 von 0 Orten erledigt</small></div>
+      </div>
 
-  <!-- FREITAG -->
-  <section class="day" id="day-freitag">
-    <h2>Freitag</h2>
-    <p class="lead">Kunst und Belle Époque an der Seine, fast alles zu Fuß.</p>
+      <div class="sec">
+        <h2>Als Nächstes</h2>
+        <div class="next" id="next"></div>
+      </div>
 
-    <div class="slot"><h3>Vormittag</h3>
-      <article class="stop highlight">
-        <h4>Musée d’Orsay</h4>
-        <p>Ehemaliger Bahnhof, heute das Museum mit der größten Sammlung impressionistischer Kunst: Monet, Renoir, Van Gogh, Degas.</p>
-        <p class="info">2–3 Stunden einplanen. Oben im 5. Stock durch die große Bahnhofsuhr auf Paris schauen.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Mus%C3%A9e+d%27Orsay+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Mittag</h3>
-      <article class="stop">
-        <h4>Saint-Germain-des-Prés</h4>
-        <p>Altes Künstler- und Literatenviertel mit Cafés, Buchläden und schmalen Gassen. 10 Minuten zu Fuß vom Orsay.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Saint-Germain-des-Pr%C3%A9s+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Café de Flore</h4>
-        <p>Berühmtes Café, in dem Sartre und de Beauvoir schrieben. Eher teuer, aber für einen Kaffee schön.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+de+Flore+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Nachmittag</h3>
-      <article class="stop">
-        <h4>Jardin des Tuileries</h4>
-        <p>Großer Park vor dem Louvre, mit Stühlen am Brunnen zum Ausruhen.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Jardin+des+Tuileries+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Palais Royal</h4>
-        <p>Ruhiger Palastgarten mit Arkaden und den schwarz-weiß gestreiften Säulen im Innenhof.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Palais+Royal+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Galerie Vivienne</h4>
-        <p>Überdachte Einkaufspassage aus dem 19. Jahrhundert mit Glasdach und Mosaikboden, gleich hinter dem Palais Royal.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Galerie+Vivienne+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop rest">
-        <h4>Pause im Airbnb</h4>
-        <p>Mit der Metro zurück nach Montmartre, ausruhen und frisch machen.</p>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Abend</h3>
-      <article class="stop">
-        <h4>Quartier Latin</h4>
-        <p>Lebendiges Studentenviertel rund um die Sorbonne mit vielen günstigen Restaurants.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Quartier+Latin+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Caveau de la Huchette<span class="opt">optional</span></h4>
-        <p>Jazzkeller in einem mittelalterlichen Gewölbe mit Swing-Bands, zu denen getanzt wird.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Caveau+de+la+Huchette+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
+      <div class="home-grid">
+        <div>
+          <div class="sec">
+            <h2>Eure drei Linien</h2>
+            <div class="lines" id="lines"></div>
+          </div>
+          <div class="sec">
+            <h2>Was machen wir jetzt?</h2>
+            <div class="dice">
+              <button type="button" id="dice-btn" aria-label="Zufälligen Paris-Tipp zeigen">🎲</button>
+              <p id="dice-txt"><small>Tippen für einen Paris-Tipp</small>Kleine Tricks für unterwegs, einer pro Wurf.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="sec">
+            <h2>Mini-Sprachführer</h2>
+            <div class="phrases" id="phrases"></div>
+            <p class="hint">Antippen zum Umdrehen.</p>
+          </div>
+          <div class="sec">
+            <h2>Vorher erledigen</h2>
+            <div class="checks" id="todos"></div>
+          </div>
+          <div class="sec">
+            <h2>Unterkunft</h2>
+            <div class="stay">
+              <p>Studio am Fuß von Montmartre, zwischen Pigalle und Barbès.</p>
+              <p>Nächste Metro: Anvers und Barbès-Rochechouart (Linie 2). Schlüssel am Freitag vor 23 Uhr abholen.</p>
+              <button type="button" class="btn btn-maps install" id="install">Als App auf den Startbildschirm</button>
+              <p class="hint" id="install-hint">Als App speichern: in Chrome oben rechts ⋮ und dann „Zum Startbildschirm hinzufügen“.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>Infos zu La Gare: <a href="https://parisjetaime.com/ger/kultur/la-gare-p1832" target="_blank" rel="noopener">Paris je t’aime</a>, <a href="https://feverup.com/en/paris/venue/la-gare-le-gore" target="_blank" rel="noopener">Fever</a></footer>
     </div>
   </section>
 
-  <!-- SAMSTAG -->
-  <section class="day" id="day-samstag">
-    <h2>Samstag</h2>
-    <p class="lead">Morgens Montmartre direkt vor der Tür, nachmittags am Kanal entlang, abends Livejazz.</p>
-
-    <div class="slot"><h3>Früh</h3>
-      <article class="stop">
-        <h4>Sacré-Cœur</h4>
-        <p>Weiße Basilika ganz oben auf dem Hügel mit einem der besten Blicke über Paris.</p>
-        <p class="info">Von der Unterkunft etwa 10 Minuten zu Fuß bergauf. Früh hingehen, ab etwa 11 Uhr wird es sehr voll.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Sacr%C3%A9-C%C5%93ur+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Rue de l’Abreuvoir</h4>
-        <p>Die vielleicht hübscheste Straße Montmartres, mit Kopfsteinpflaster und alten Häusern.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Rue+de+l%27Abreuvoir+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>La Maison Rose</h4>
-        <p>Kleines rosa Restaurant an einer Straßenecke, ein bekanntes Fotomotiv.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=La+Maison+Rose+Montmartre+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Musée de Montmartre</h4>
-        <p>Im Haus, in dem Renoir sein Atelier hatte. Zeigt das Künstlerleben um 1900 und hat einen Garten mit Blick auf den letzten Weinberg von Paris.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Mus%C3%A9e+de+Montmartre+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Place du Tertre</h4>
-        <p>Der Platz mit den Straßenmalern, sehr touristisch. Nur kurz durchlaufen.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Place+du+Tertre+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Nachmittag</h3>
-      <article class="stop">
-        <h4>Canal Saint-Martin</h4>
-        <p>Kanal mit eisernen Fußgängerbrücken und Schleusen, wo die Pariser selbst unterwegs sind. Etwa 15 Minuten mit der Metro von Montmartre.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Canal+Saint-Martin+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Bassin de la Villette</h4>
-        <p>Breites Wasserbecken am Ende des Kanals mit Bars und Sitzplätzen am Ufer. Von hier ist es nicht mehr weit zu La Gare.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Bassin+de+la+Villette+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Parc des Buttes-Chaumont<span class="opt">optional</span></h4>
-        <p>Hügeliger Park mit Felsen, See und einem kleinen Tempel oben drauf.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Parc+des+Buttes-Chaumont+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Abend</h3>
-      <article class="stop highlight">
-        <h4>La Gare</h4>
-        <p>Jazzclub in einem stillgelegten Bahnhof der alten Pariser Ringbahn, nahe dem Parc de la Villette. Eintritt frei, mit Bar, Essen und einer Terrasse an den alten Gleisen.</p>
-        <p class="info">Konzerte meist ab 20–21 Uhr, am Wochenende spielen bekanntere Bands. 1 Avenue Corentin Cariou, Metro Corentin Cariou (Linie 7).</p>
-        <p class="info">Zurück: Linie 7 bis Stalingrad, dann Linie 2 bis Barbès-Rochechouart oder Anvers. Freitags und samstags fährt die Metro bis etwa 2 Uhr.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=La+Gare+1+Avenue+Corentin+Cariou+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- SONNTAG -->
-  <section class="day" id="day-sonntag">
-    <h2>Sonntag</h2>
-    <p class="lead">Ruhig im Marais, wo sonntags viele Läden geöffnet haben.</p>
-
-    <div class="slot"><h3>Vormittag</h3>
-      <article class="stop">
-        <h4>Le Marais</h4>
-        <p>Altes Adelsviertel mit kleinen Gassen, Boutiquen, Galerien und Cafés, ideal für einen Brunch.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Le+Marais+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Place des Vosges</h4>
-        <p>Ältester Platz von Paris, quadratisch mit roten Backsteinhäusern und Arkaden rundherum, in der Mitte ein Park.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Place+des+Vosges+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Mittag</h3>
-      <article class="stop">
-        <h4>L’As du Fallafel</h4>
-        <p>Bekanntester Falafel-Laden in der Rue des Rosiers im alten jüdischen Viertel. Die Schlange geht meist schnell.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=L%27As+du+Fallafel+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-
-    <div class="slot"><h3>Nachmittag, je nach Abreise</h3>
-      <article class="stop">
-        <h4>Île Saint-Louis &amp; Berthillon</h4>
-        <p>Kleine, ruhige Insel in der Seine. Bei Berthillon gibt es das bekannteste Eis der Stadt.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Berthillon+%C3%8Ele+Saint-Louis+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-      <article class="stop">
-        <h4>Seine-Ufer bei Notre-Dame</h4>
-        <p>Zum Abschluss an der Seine spazieren, mit Blick auf die Kathedrale.</p>
-        <a class="maps" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Cath%C3%A9drale+Notre-Dame+de+Paris"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>In Google Maps öffnen</a>
-      </article>
-    </div>
-  </section>
+  <section class="view" id="v-freitag"></section>
+  <section class="view" id="v-samstag"></section>
+  <section class="view" id="v-sonntag"></section>
 </main>
 
-<footer class="wrap">Infos zu La Gare: <a href="https://parisjetaime.com/ger/kultur/la-gare-p1832" target="_blank" rel="noopener">Paris je t’aime</a>, <a href="https://feverup.com/en/paris/venue/la-gare-le-gore" target="_blank" rel="noopener">Fever</a></footer>
+<div class="tabbar">
+  <nav aria-label="Navigation">
+    <a href="#start" data-v="start"><span class="ic" aria-hidden="true">P</span>Start</a>
+    <a href="#freitag" data-v="freitag"><span class="ic" aria-hidden="true">Fr</span>Freitag</a>
+    <a href="#samstag" data-v="samstag"><span class="ic" aria-hidden="true">Sa</span>Samstag</a>
+    <a href="#sonntag" data-v="sonntag"><span class="ic" aria-hidden="true">So</span>Sonntag</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 (function(){
-  var days=["freitag","samstag","sonntag"];
-  function show(){
-    var h=(location.hash||"").replace("#","");
-    if(days.indexOf(h)<0) h="freitag";
-    days.forEach(function(d){
-      document.getElementById("day-"+d).classList.toggle("on",d===h);
-      var a=document.querySelector('[data-day="'+d+'"]');
-      if(d===h) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+var PIN='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+var M=function(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);};
+
+var DAYS=[
+ {id:'freitag',short:'Fr',name:'Freitag',theme:'Kunst & Belle Époque',color:'var(--green)',lead:'Kunst und Belle Époque an der Seine, fast alles zu Fuß.',slots:[
+  {t:'Vormittag',s:[{id:'orsay',n:'Musée d’Orsay',hl:1,d:'Ehemaliger Bahnhof, heute das Museum mit der größten Sammlung impressionistischer Kunst: Monet, Renoir, Van Gogh, Degas.',i:'2–3 Stunden einplanen. Oben im 5. Stock durch die große Bahnhofsuhr auf Paris schauen.',q:'Musée d\'Orsay Paris'}]},
+  {t:'Mittag',s:[
+   {id:'sgp',n:'Saint-Germain-des-Prés',d:'Altes Künstler- und Literatenviertel mit Cafés, Buchläden und schmalen Gassen. 10 Minuten zu Fuß vom Orsay.',q:'Saint-Germain-des-Prés Paris'},
+   {id:'flore',n:'Café de Flore',d:'Berühmtes Café, in dem Sartre und de Beauvoir schrieben. Eher teuer, aber für einen Kaffee schön.',q:'Café de Flore Paris'}]},
+  {t:'Nachmittag',s:[
+   {id:'tuileries',n:'Jardin des Tuileries',d:'Großer Park vor dem Louvre, mit Stühlen am Brunnen zum Ausruhen.',q:'Jardin des Tuileries Paris'},
+   {id:'palais',n:'Palais Royal',d:'Ruhiger Palastgarten mit Arkaden und den schwarz-weiß gestreiften Säulen im Innenhof.',q:'Palais Royal Paris'},
+   {id:'vivienne',n:'Galerie Vivienne',d:'Überdachte Einkaufspassage aus dem 19. Jahrhundert mit Glasdach und Mosaikboden, gleich hinter dem Palais Royal.',q:'Galerie Vivienne Paris'},
+   {id:'pause',n:'Pause in der Unterkunft',rest:1,d:'Mit der Metro zurück nach Montmartre, ausruhen und frisch machen. Schlüssel vor 23 Uhr abholen.'}]},
+  {t:'Abend',s:[
+   {id:'latin',n:'Quartier Latin',d:'Lebendiges Studentenviertel rund um die Sorbonne mit vielen günstigen Restaurants.',q:'Quartier Latin Paris'},
+   {id:'huchette',n:'Caveau de la Huchette',opt:1,d:'Jazzkeller in einem mittelalterlichen Gewölbe mit Swing-Bands, zu denen getanzt wird.',q:'Caveau de la Huchette Paris'}]}
+ ]},
+ {id:'samstag',short:'Sa',name:'Samstag',theme:'Montmartre & Jazz',color:'var(--amber)',lead:'Morgens Montmartre direkt vor der Tür, nachmittags am Kanal entlang, abends Livejazz.',slots:[
+  {t:'Früh',s:[
+   {id:'sacre',n:'Sacré-Cœur',d:'Weiße Basilika ganz oben auf dem Hügel mit einem der besten Blicke über Paris.',i:'Von der Unterkunft etwa 10 Minuten zu Fuß bergauf. Früh hingehen, ab etwa 11 Uhr wird es sehr voll.',q:'Sacré-Cœur Paris'},
+   {id:'abreuvoir',n:'Rue de l’Abreuvoir',d:'Die vielleicht hübscheste Straße Montmartres, mit Kopfsteinpflaster und alten Häusern.',q:'Rue de l\'Abreuvoir Paris'},
+   {id:'rose',n:'La Maison Rose',d:'Kleines rosa Restaurant an einer Straßenecke, ein bekanntes Fotomotiv.',q:'La Maison Rose Montmartre Paris'},
+   {id:'museemm',n:'Musée de Montmartre',d:'Im Haus, in dem Renoir sein Atelier hatte. Zeigt das Künstlerleben um 1900 und hat einen Garten mit Blick auf den letzten Weinberg von Paris.',q:'Musée de Montmartre Paris'},
+   {id:'tertre',n:'Place du Tertre',d:'Der Platz mit den Straßenmalern, sehr touristisch. Nur kurz durchlaufen.',q:'Place du Tertre Paris'}]},
+  {t:'Nachmittag',s:[
+   {id:'canal',n:'Canal Saint-Martin',d:'Kanal mit eisernen Fußgängerbrücken und Schleusen, wo die Pariser selbst unterwegs sind.',q:'Canal Saint-Martin Paris'},
+   {id:'villette',n:'Bassin de la Villette',d:'Breites Wasserbecken am Ende des Kanals mit Bars und Sitzplätzen am Ufer. Von hier ist es nicht mehr weit zu La Gare.',q:'Bassin de la Villette Paris'},
+   {id:'buttes',n:'Parc des Buttes-Chaumont',opt:1,d:'Hügeliger Park mit Felsen, See und einem kleinen Tempel oben drauf.',q:'Parc des Buttes-Chaumont Paris'}]},
+  {t:'Abend',s:[
+   {id:'gare',n:'La Gare',hl:1,d:'Jazzclub in einem stillgelegten Bahnhof der alten Pariser Ringbahn, nahe dem Parc de la Villette. Eintritt frei, mit Bar, Essen und einer Terrasse an den alten Gleisen.',i:'Konzerte meist ab 20–21 Uhr. Zurück: Linie 7 bis Stalingrad, dann Linie 2 bis Barbès-Rochechouart oder Anvers. Freitags und samstags fährt die Metro bis etwa 2 Uhr.',q:'La Gare 1 Avenue Corentin Cariou Paris'}]}
+ ]},
+ {id:'sonntag',short:'So',name:'Sonntag',theme:'Marais & Seine',color:'var(--plum)',lead:'Ruhig im Marais, wo sonntags viele Läden geöffnet haben.',slots:[
+  {t:'Vormittag',s:[
+   {id:'marais',n:'Le Marais',d:'Altes Adelsviertel mit kleinen Gassen, Boutiquen, Galerien und Cafés, ideal für einen Brunch.',q:'Le Marais Paris'},
+   {id:'vosges',n:'Place des Vosges',d:'Ältester Platz von Paris, quadratisch mit roten Backsteinhäusern und Arkaden rundherum, in der Mitte ein Park.',q:'Place des Vosges Paris'}]},
+  {t:'Mittag',s:[
+   {id:'falafel',n:'L’As du Fallafel',d:'Bekanntester Falafel-Laden in der Rue des Rosiers im alten jüdischen Viertel. Die Schlange geht meist schnell.',q:'L\'As du Fallafel Paris'}]},
+  {t:'Nachmittag, je nach Abreise',s:[
+   {id:'berthillon',n:'Île Saint-Louis & Berthillon',d:'Kleine, ruhige Insel in der Seine. Bei Berthillon gibt es das bekannteste Eis der Stadt.',q:'Berthillon Île Saint-Louis Paris'},
+   {id:'notredame',n:'Seine-Ufer bei Notre-Dame',d:'Zum Abschluss an der Seine spazieren, mit Blick auf die Kathedrale.',q:'Cathédrale Notre-Dame de Paris'}]}
+ ]}
+];
+var TODOS=[
+ {id:'t1',t:'Tickets fürs Musée d’Orsay mit festem Zeitfenster online buchen'},
+ {id:'t2',t:'Der Gastgeberin sagen, ob ihr im Hochbett oder auf der Schlafcouch schlaft'},
+ {id:'t3',t:'Programm von La Gare für Samstag anschauen'},
+ {id:'t4',t:'Optional: Tisch fürs Abendessen am Freitag reservieren'},
+ {id:'t5',t:'Schlüssel am Freitag vor 23 Uhr an der Schlüsselbox abholen'}
+];
+var TIPS=[
+ 'Beim Betreten jedes Ladens „Bonjour“ sagen. Das gilt in Paris als selbstverständlich höflich.',
+ 'Leitungswasser im Restaurant ist kostenlos: einfach „une carafe d’eau“ bestellen.',
+ 'Der Service ist im Preis enthalten. Wer zufrieden war, rundet einfach etwas auf.',
+ 'Am Tresen ist der Kaffee meist günstiger als am Tisch.',
+ 'In der Bäckerei nach „une baguette tradition“ fragen. Die schmeckt besser als die normale.',
+ 'Sonntags haben viele Läden zu. Der Marais ist die große Ausnahme.',
+ 'Abends sind die Brücken an der Seine beleuchtet. Ein Spaziergang lohnt sich auch spät noch.',
+ 'Am Sacré-Cœur sprechen euch Leute mit Freundschaftsbändern an. Freundlich „non, merci“ sagen und weitergehen.'
+];
+var PHRASES=[
+ ['Bonjour !','Guten Tag!'],['Merci beaucoup','Vielen Dank'],['L’addition, s’il vous plaît','Die Rechnung, bitte'],
+ ['Une carafe d’eau, s’il vous plaît','Eine Karaffe Leitungswasser, bitte'],['Où est le métro ?','Wo ist die Metro?'],['C’était délicieux !','Das war köstlich!']
+];
+
+/* Speicher (nur in diesem Browser) */
+var KEY='paris-wochenende-v1', state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function done(id){return !!state[id];}
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function stopsOf(d){var a=[];d.slots.forEach(function(sl){sl.s.forEach(function(s){a.push(s);});});return a;}
+function countOf(d){var a=stopsOf(d);return{done:a.filter(function(s){return done(s.id);}).length,all:a.length};}
+
+/* Tagesansichten bauen */
+DAYS.forEach(function(d){
+  var el=document.getElementById('v-'+d.id);
+  el.style.setProperty('--c',d.color);
+  var h='<div class="wrap"><div class="dayhead"><div class="badge" aria-hidden="true">'+d.short+'</div><h2>'+d.name+'</h2><p>'+esc(d.lead)+'</p>'+
+    '<div class="bar"><i id="bar-'+d.id+'"></i></div><div class="bar-txt" id="bartxt-'+d.id+'"></div></div>';
+  d.slots.forEach(function(sl){
+    h+='<div class="slot"><h3>'+esc(sl.t)+'</h3><div class="stops">';
+    sl.s.forEach(function(s){
+      h+='<article class="stop'+(s.hl?' hl':'')+(s.rest?' rest':'')+'" data-id="'+s.id+'"><h4>'+esc(s.n)+(s.opt?'<span class="tag">optional</span>':'')+'</h4><p>'+esc(s.d)+'</p>'+(s.i?'<p class="info">'+esc(s.i)+'</p>':'')+
+        '<div class="row">'+(s.q?'<a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(s.q)+'">'+PIN+'Google Maps</a>':'')+
+        '<button type="button" class="btn tick" data-tick="'+s.id+'" aria-pressed="false">Abhaken</button></div></article>';
     });
+    h+='</div></div>';
+  });
+  h+='<a class="back" href="#start">← Zur Startseite</a></div>';
+  el.innerHTML=h;
+});
+
+/* Startseite: Linien */
+function renderLines(){
+  var h='';
+  DAYS.forEach(function(d){
+    var c=countOf(d), dots='';
+    stopsOf(d).forEach(function(s){dots+='<span class="dot'+(done(s.id)?' done':'')+(s.hl?' star':'')+'"></span>';});
+    h+='<a class="line" href="#'+d.id+'" style="--c:'+d.color+'"><div class="line-head"><div class="badge" aria-hidden="true">'+d.short+'</div><div><b>'+d.name+'</b><small>'+esc(d.theme)+'</small></div><span class="count">'+c.done+' / '+c.all+'</span></div><div class="track" aria-hidden="true">'+dots+'</div></a>';
+  });
+  document.getElementById('lines').innerHTML=h;
+}
+function renderScore(){
+  var t=0,a=0;DAYS.forEach(function(d){var c=countOf(d);t+=c.done;a+=c.all;});
+  var p=a?Math.round(t/a*100):0;
+  document.getElementById('ring').style.setProperty('--p',p);
+  document.getElementById('ring-num').textContent=p+'%';
+  document.getElementById('score-sub').textContent=t+' von '+a+' Orten erledigt';
+  document.getElementById('score-title').textContent=p===0?'Noch alles vor euch':p<35?'Bon début!':p<70?'Ihr seid mittendrin':p<100?'Fast geschafft':'Paris erobert';
+}
+function renderNext(){
+  var nx=null,nd=null;
+  for(var i=0;i<DAYS.length&&!nx;i++){var a=stopsOf(DAYS[i]);for(var j=0;j<a.length;j++){if(!done(a[j].id)&&!a[j].opt){nx=a[j];nd=DAYS[i];break;}}}
+  var el=document.getElementById('next');
+  if(!nx){el.innerHTML='<div class="lbl">Alles erledigt</div><h3>Merci, Paris!</h3><p>Ihr habt jeden Ort auf dem Plan geschafft.</p>';return;}
+  el.innerHTML='<div class="lbl">'+nd.name+'</div><h3>'+esc(nx.n)+'</h3><p>'+esc(nx.d)+'</p><div class="row">'+
+    (nx.q?'<a class="btn btn-maps" target="_blank" rel="noopener" href="'+M(nx.q)+'">'+PIN+'Route starten</a>':'')+
+    '<button type="button" class="btn btn-ghost" data-tick="'+nx.id+'">Erledigt</button></div>';
+}
+function renderDays(){
+  DAYS.forEach(function(d){
+    var c=countOf(d);
+    document.getElementById('bar-'+d.id).style.width=(c.all?c.done/c.all*100:0)+'%';
+    document.getElementById('bartxt-'+d.id).textContent=c.done+' von '+c.all+' Orten erledigt';
+    stopsOf(d).forEach(function(s){
+      var card=document.querySelector('.stop[data-id="'+s.id+'"]'),b=card.querySelector('.tick');
+      card.classList.toggle('done',done(s.id));
+      b.textContent=done(s.id)?'✓ Erledigt':'Abhaken';
+      b.setAttribute('aria-pressed',done(s.id)?'true':'false');
+    });
+  });
+}
+function renderAll(){renderLines();renderScore();renderNext();renderDays();}
+
+/* Abhaken */
+var toastT;
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},2200);}
+function confetti(){
+  var cols=['#2E5A4C','#C98A1E','#8C4A68','#8DC0AB','#E7B252'];
+  for(var i=0;i<44;i++){var c=document.createElement('i');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=cols[i%cols.length];c.style.animationDuration=(1.6+Math.random()*1.6)+'s';c.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(c);setTimeout(function(x){return function(){x.remove();};}(c),3800);}
+}
+var CHEERS=['Très bien!','Super!','Magnifique!','Bravo!','Parfait!'];
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-tick]');if(!b)return;
+  var id=b.getAttribute('data-tick'),day=DAYS.filter(function(d){return stopsOf(d).some(function(s){return s.id===id;});})[0];
+  var before=countOf(day);
+  if(done(id)){delete state[id];}else{state[id]=1;}
+  save();renderAll();
+  var after=countOf(day);
+  if(done(id)){
+    if(after.done===after.all&&before.done<before.all){confetti();toast(day.name+' komplett geschafft!');}
+    else toast(CHEERS[Math.floor(Math.random()*CHEERS.length)]);
   }
-  window.addEventListener("hashchange",function(){show();var t=document.querySelector(".days");if(t.getBoundingClientRect().top<=1)window.scrollTo({top:t.offsetTop,behavior:"auto"});});
-  show();
+});
+
+/* Würfel */
+var lastTip=-1;
+document.getElementById('dice-btn').addEventListener('click',function(){
+  var n;do{n=Math.floor(Math.random()*TIPS.length);}while(n===lastTip&&TIPS.length>1);lastTip=n;
+  var b=this;b.animate&&b.animate([{transform:'rotate(0)'},{transform:'rotate(360deg)'}],{duration:450,easing:'ease-out'});
+  document.getElementById('dice-txt').innerHTML='<small>Tipp '+(n+1)+' von '+TIPS.length+'</small>'+esc(TIPS[n]);
+});
+
+/* Sprachführer */
+document.getElementById('phrases').innerHTML=PHRASES.map(function(p){return '<button type="button" class="phrase" aria-label="'+esc(p[0])+'"><span class="in"><span class="f">'+esc(p[0])+'</span><span class="b">'+esc(p[1])+'</span></span></button>';}).join('');
+document.getElementById('phrases').addEventListener('click',function(e){var p=e.target.closest('.phrase');if(p)p.classList.toggle('flip');});
+
+/* Checkliste */
+document.getElementById('todos').innerHTML=TODOS.map(function(t){return '<label class="check"><input type="checkbox" data-todo="'+t.id+'"'+(done(t.id)?' checked':'')+'><span>'+esc(t.t)+'</span></label>';}).join('');
+document.getElementById('todos').addEventListener('change',function(e){var id=e.target.getAttribute('data-todo');if(!id)return;if(e.target.checked)state[id]=1;else delete state[id];save();});
+
+/* Installieren */
+var deferred=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;document.getElementById('install').classList.add('on');document.getElementById('install-hint').style.display='none';});
+document.getElementById('install').addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred=null;this.classList.remove('on');});
+
+/* Ansichten */
+var VIEWS=['start','freitag','samstag','sonntag'];
+function show(){
+  var h=(location.hash||'').replace('#','');if(VIEWS.indexOf(h)<0)h='start';
+  VIEWS.forEach(function(v){document.getElementById('v-'+v).classList.toggle('on',v===h);var a=document.querySelector('.tabbar a[data-v="'+v+'"]');if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  var d=DAYS.filter(function(x){return x.id===h;})[0];
+  document.documentElement.style.setProperty('--c',d?d.color:'var(--green)');
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',show);
+renderAll();show();
 })();
 </script>
 </body>
