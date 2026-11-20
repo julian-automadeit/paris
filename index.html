@@ -372,16 +372,36 @@ var TIPS=[
  'Umsteigen heißt in der Metro „correspondance“. An großen Stationen wie Châtelet kann der Fußweg dazwischen gut 10 Minuten dauern.',
  'Handy und Geldbeutel in der Metro und am Sacré-Cœur vorne tragen. Taschendiebe arbeiten oft zu zweit, einer lenkt ab.',
  'Am Sacré-Cœur binden einem Leute ungefragt Freundschaftsbänder ums Handgelenk und wollen dann Geld. Hand nicht hinhalten, weitergehen.',
- 'Trinkgeld ist im Preis enthalten („service compris“). Für richtig guten Service lasst ihr ein paar Euro liegen, mehr nicht.'
+ 'Trinkgeld ist im Preis enthalten („service compris“). Für richtig guten Service lasst ihr ein paar Euro liegen, mehr nicht.',
+ 'Ein „demi“ ist kein halber Liter, sondern ein kleines Bier mit 25 cl. Wer mehr will, bestellt „une pinte“.',
+ 'Zum Apéro wie die Locals: ein Kir (Weißwein mit Cassis) oder ein Pastis. Dazu gibt es oft ein paar Oliven umsonst.',
+ 'Die grünen gusseisernen Wallace-Brunnen in der Stadt liefern Trinkwasser. Flasche auffüllen statt Wasser kaufen.',
+ 'In der Bäckerei einfach „une tradition“ sagen. Jeder weiß, dass die gute Baguette gemeint ist.',
+ 'Auf den Café-Terrassen zeigen alle Stühle zur Straße. Leute gucken ist hier offizieller Volkssport, macht einfach mit.',
+ 'Nach La Gare fährt die Metro am Wochenende bis etwa 2 Uhr. Danach übernehmen die Noctilien-Nachtbusse.',
+ 'Ein „Bonjour“ zu vergessen gilt in Paris als unhöflicher als schlechtes Französisch. Erst grüßen, dann bestellen.',
+ 'Bei Notre-Dame, Orsay und vielen Läden gibt es Taschenkontrollen. Kleine Rucksäcke sparen Zeit in der Schlange.'
 ];
 var PHRASES=[
  ['Putain, c’est cher !','Verdammt, ist das teuer! „Putain“ ist das Allzweck-Fluchwort, ihr hört es ständig.'],
+ ['Merde !','Mist! oder Scheiße! Funktioniert für alles von Regen bis verpasste Metro.'],
+ ['Oh la vache !','Krass! Wörtlich: Oh, die Kuh!'],
+ ['Ça coûte la peau des fesses.','Das ist sauteuer. Wörtlich: Das kostet die Haut vom Hintern.'],
+ ['J’ai la gueule de bois.','Ich hab einen Kater. Wörtlich: Ich habe ein Holzmaul. Für Sonntagmorgen.'],
+ ['Il boit comme un trou.','Er säuft wie ein Loch.'],
+ ['Fais pas chier !','Nerv nicht! Ziemlich derb, nur unter euch benutzen.'],
+ ['Je m’en fous.','Ist mir doch egal. Salopp, sehr pariserisch.'],
+ ['C’est chiant.','Das ist ätzend. Für die Schlange vor dem Orsay.'],
+ ['Ça déchire !','Das rockt! Wörtlich: Das zerreißt! Perfekt nach La Gare.'],
+ ['Il a un poil dans la main.','Er ist stinkfaul. Wörtlich: Er hat ein Haar in der Hand.'],
+ ['Arrête de raconter des salades.','Hör auf, Quatsch zu erzählen. Wörtlich: Hör auf, Salate zu erzählen.'],
+ ['Poser un lapin','Jemanden versetzen. Wörtlich: einen Hasen hinstellen.'],
  ['J’ai la flemme.','Ich hab keinen Bock. Wörtlich: Ich habe die Faulheit.'],
  ['C’est pas mes oignons.','Geht mich nichts an. Wörtlich: Das sind nicht meine Zwiebeln.'],
  ['Quel bordel !','Was für ein Chaos! Perfekt für die Metro zur Rushhour.'],
  ['Les doigts dans le nez.','Kinderleicht. Wörtlich: mit den Fingern in der Nase.'],
  ['On se fait un apéro ?','Gehen wir was trinken? Der wichtigste Satz für 18 Uhr.'],
- ['Je suis crevé.','Ich bin fix und fertig. Für Sonntagabend.'],
+ ['Je suis crevé.','Ich bin fix und fertig.'],
  ['Il pleut des cordes.','Es schüttet. Wörtlich: Es regnet Seile.']
 ];
 
@@ -495,9 +515,10 @@ document.addEventListener('click',function(e){
 })();
 
 /* Würfel */
-var lastTip=-1;
+var bag=[],lastTip=-1;
 document.getElementById('dice-btn').addEventListener('click',function(){
-  var n;do{n=Math.floor(Math.random()*TIPS.length);}while(n===lastTip&&TIPS.length>1);lastTip=n;
+  if(!bag.length){bag=TIPS.map(function(_,i){return i;});for(var i=bag.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=bag[i];bag[i]=bag[j];bag[j]=x;}if(bag.length>1&&bag[bag.length-1]===lastTip){var y=bag[0];bag[0]=bag[bag.length-1];bag[bag.length-1]=y;}}
+  var n=bag.pop();lastTip=n;
   var b=this;b.animate&&b.animate([{transform:'rotate(0)'},{transform:'rotate(360deg)'}],{duration:450,easing:'ease-out'});
   document.getElementById('dice-txt').innerHTML='<small>Tipp '+(n+1)+' von '+TIPS.length+'</small>'+esc(TIPS[n]);
 });
